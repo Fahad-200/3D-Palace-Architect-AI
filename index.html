@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Abandoned Palace</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <div id="crosshair"></div>
+  <div id="enter-prompt">Click to Enter</div>
+  <div id="fps"></div>
+  <div id="pause-menu">
+    <div class="title">PAUSED</div>
+    <div class="subtitle">THE ABANDONED PALACE</div>
+    <div class="controls">
+      WASD &mdash; MOVE &nbsp;|&nbsp; MOUSE &mdash; LOOK &nbsp;|&nbsp; SPACE &mdash; JUMP<br>
+      SHIFT &mdash; SPRINT &nbsp;|&nbsp; C &mdash; CROUCH &nbsp;|&nbsp; ESC &mdash; PAUSE
+    </div>
+    <div class="resume">CLICK TO RESUME</div>
+  </div>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.165.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module" src="src/engine.js?v=2"></script>
+</body>
+</html>
