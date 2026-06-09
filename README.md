@@ -32,6 +32,16 @@ An abandoned Gothic palace rendered in WebGL — four stories, split-level floor
 | Agentic framework | **opencode** (open-source) |
 | Context management | `PALACE_STATE.md` — a structured architectural context file fed to the agent every session |
 
+### Why a 3D Palace?
+
+This project was not built to create a palace. It was built to test a thesis: *can an agentic AI system, operating under severe context constraints, produce coherent, architecturally complex 3D geometry without human intervention?*
+
+3D is the unforgiving domain for code generation. It demands spatial reasoning (every vertex, every collision surface, every sightline), mathematical precision (rotated step AABBs, camera frustums, lighting falloff), and cross-module coordination (the ballroom ceiling must not intersect the library floor above it). A single off-by-one in a wall coordinate is immediately visible — the player falls through the floor. There is no "close enough" in 3D collision. There is only pass or fail.
+
+I chose a Gothic palace specifically because its architectural vocabulary is both rich and unambiguous — curved stairwells, spiral towers, vaulted ceilings, split-level floors, trapdoors. If the agent could generate this reliably across 20 sessions without regressing earlier work, then the harness engineering approach was validated.
+
+**The verdict: I got more than I expected.** The agent produced not only the structural shell and all 13 rooms, but working collision geometry, spatial audio triggers, dynamic lighting, atmosphere effects, and three distinct staircase types — all with a single debugging pass on the final session. The model hit its context wall repeatedly across 20 sessions and the harness absorbed every blow. That is the result you see here.
+
 ### How 6,268 lines were produced in 20 prompts
 
 The critical constraint: DeepSeek V4 Flash has a **170K token context window** that compacts aggressively once exceeded. Every line of this codebase was generated across 20 discrete sessions, each starting with a compressed architectural summary (`PALACE_STATE.md`) that preserved intent while fitting within the shrinking context. This is a practical demonstration of **context compaction** — a harness engineering technique where long-horizon work is decomposed into bounded sessions, each seeded with a structured state file that encodes what came before.
@@ -158,6 +168,26 @@ The system was not merely prompted — it was **programmed through context**. Ea
 4. **Acceptance criteria** — how to verify the output was correct
 
 This is prompt engineering elevated from *"what should I say"* to *"what system should I build"* — the transition from prompt engineering to harness engineering. The agent never produced regressions across sessions because the context file encoded architectural invariants that each new session was required to respect.
+
+---
+
+## Retrospective
+
+Every project reveals what its author did not know at the start. Here is what I would do differently — not because the project failed, but because the best signal an engineer can produce is the honest account of what they learned.
+
+**I overestimated the context window.** DeepSeek V4 Flash has 170K tokens, and I assumed that would be enough to retain the full architectural state across sessions. It was not. Context compaction is aggressive, and details I assumed would survive — material assignments, exact light positions, audio trigger coordinates — were silently evicted. The fix was `PALACE_STATE.md`, but that file should have existed as a rigorous compressed ledger from session 1, not retrofitted at session 10. I learned that a context file is not documentation. It is the architectural invariant that makes long-horizon agentic work possible.
+
+**I let modules grow too large.** `floor2_ballroom.js` at 413 lines and `floor3_guests.js` at 388 lines are each larger than the collision engine, the lighting system, and the atmosphere module combined. A module that exceeds 200 lines becomes a blind spot for an agent — it cannot reason about a 400-line block the way it can about two 200-line blocks. The fix is a hard per-module cap enforced at the harness level, not left to the agent's judgment.
+
+**I shipped without automated tests.** Every verification across 19 sessions was manual — walk through the palace, check for collision leaks, verify staircases ascend and descend. This worked because the scope was bounded and I was willing to invest the attention. It does not scale. The harness should have included a `tests/` directory from session 1 with structural assertions: files exist, modules export expected symbols, collision boxes contain only finite numbers, no NaN coordinates reach the renderer. A computational sensor running in milliseconds would have replaced 30 minutes of manual walking per session.
+
+**I coupled audio coordinates to room geometry.** The wind trigger lives at a specific (x, z) in the great hall. The water drip lives at a specific coordinate in the basement. Move a wall, and the audio breaks silently — no error, no warning, just a room that no longer sounds right. Audio zones should have been decoupled from geometry coordinates through a spatial indexing layer, so that moving a wall updates the zone, not the trigger.
+
+**I should have started with a server.** The `file://` protocol cache issue consumed an entire debugging session. Serving via `python3 -m http.server` from day 1 would have eliminated the browser caching problem entirely. A one-line command that I did not run until after the problem manifested. A reminder that the simplest infrastructure decisions, made early, prevent entire categories of failure.
+
+**I used bare `Math.random()` for procedural geometry.** Two runs of the same code produce different palaces. This is fine for exploration but disastrous for debugging — when a bug appears, you cannot replay the exact state that produced it. A seeded PRNG, threaded through every geometry function, would have made every vertex position reproducible. This is the kind of thing you only feel missing when you are trying to reproduce a heisenbug at 2 AM.
+
+None of these are failures. They are the second-order learnings that separate a project from a system. A project works once. A system works every time. This project taught me where the system would begin.
 
 ---
 
