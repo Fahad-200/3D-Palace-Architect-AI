@@ -11,3 +11,5 @@ export function getClock() { return _clock; }
 export function setState(s, c, r, cl) { _scene=s; _camera=c; _renderer=r; _clock=cl; }
 
 export { _scene as scene, _camera as camera, _renderer as renderer, _clock as clock };
+
+export const VERSION = '1.0.0';
