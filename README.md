@@ -44,7 +44,13 @@ I chose a Gothic palace specifically because its architectural vocabulary is bot
 
 ### How 6,268 lines were produced in 20 prompts
 
-The critical constraint: DeepSeek V4 Flash has a **170K token context window** that compacts aggressively once exceeded. Every line of this codebase was generated across 20 discrete sessions, each starting with a compressed architectural summary (`PALACE_STATE.md`) that preserved intent while fitting within the shrinking context. This is a practical demonstration of **context compaction** — a harness engineering technique where long-horizon work is decomposed into bounded sessions, each seeded with a structured state file that encodes what came before.
+These 20 prompts were not isolated one-offs. They were a **single, connected chain** — each session began where the previous one ended, carrying forward architectural intent, module registry, and known issues through a structured context file (`PALACE_STATE.md`). No session was written in isolation; every line of code in this repository exists because the session that produced it had access to everything that came before.
+
+The obvious question: why not do it in a single prompt?
+
+Because a single session producing 6,268 lines across 27 files would exceed DeepSeek V4 Flash's **170K token context window** within the first few thousand lines. Once the context compacts, the model begins losing reference to earlier code. The immediate symptoms are code truncation (files cut off mid-function), hallucinated module names (importing files that do not exist), and silent corruption (duplicate geometry, overlapping collision boxes, lights that reference destroyed objects). A monolithic session does not scale to this codebase size. It produces a fragile, internally inconsistent artifact that requires more debugging than writing.
+
+The solution was **context compaction** — a harness engineering technique where long-horizon work is decomposed into bounded, causally connected sessions, each seeded with a compressed architectural summary that preserves what matters while fitting within the available window. Every session started with `PALACE_STATE.md`: floor dimensions, room registry, material references, known issues, and the cumulative file tree. The agent read this, built the next module, registered its outputs back into the state file, and the cycle repeated. The context never overflowed because the state file carried only what the next session needed, not everything the model had ever generated.
 
 The agent built the shell first (floor plates, exterior walls), then room by room — foyer, great hall, gallery, kitchen, ballroom, library, chapel, master suite, guest quarters, observatory, attic, basement — with collision geometry, materials, lighting, and audio integrated at each layer. Staircases (curved flights, east tower spiral, library spiral, basement trapdoor steps) were the final architectural element, requiring the most complex collision math.
 
