@@ -79,3 +79,5 @@ export const materials = {
 };
 
 export function init() {}
+
+export function getMaterialCount() { return Object.keys(materials).length; }
