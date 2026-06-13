@@ -260,3 +260,5 @@ registerUpdateCallback(function(delta, elapsed) {
 });
 
 export function init() {}
+
+export function getActiveTriggerCount() { return audioTriggers.length; }
