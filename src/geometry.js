@@ -32,6 +32,7 @@ export function makeTexture(w, h, drawFn) {
 }
 
 export function guard(v, fallback) { return isFinite(v) ? v : (fallback !== undefined ? fallback : 0); }
+export function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
 
 function guardBox(w, h, d) {
   const bw = guard(w, 0.1), bh = guard(h, 0.1), bd = guard(d, 0.1);
