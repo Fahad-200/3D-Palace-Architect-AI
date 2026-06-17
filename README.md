@@ -25,7 +25,7 @@ An abandoned Gothic palace rendered in WebGL — four stories, split-level floor
 |--------|-------|
 | Total lines of code | **6,268** (across 27 source files) |
 | AI sessions (prompts) | **20** |
-| Total development time | **2 days** |
+| Total development time | **2 days (4 hours per day)** |
 | Human-written code | **0 lines** |
 | Debugging iterations | **1** (session 20 — the final session) |
 | Model used | **DeepSeek V4 Flash** (open-source, 170K token context) |
