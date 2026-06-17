@@ -138,7 +138,7 @@ This fix was applied to all three curved flights (68 steps total), the east towe
 
 This project was built using the **harness engineering** paradigm — the discipline of designing the complete infrastructure surrounding an AI agent to make its outputs reliable at scale. The three pillars of harness engineering are guides, sensors, and architectural constraints. Here is how they map to this codebase:
 
-### Pillar 1: Guides (Feedforward Controls)
+### Pillar 1: Guides
 
 | Guide | Implementation |
 |---|---|
@@ -147,7 +147,7 @@ This project was built using the **harness engineering** paradigm — the discip
 | **Module boundary enforcement** | ES module imports were the constraint — each room module could only access `scene`, `collisionWorld`, and `materials`; no cross-room dependencies were permitted |
 | **State compact** | Each session began with a compressed summary of what existed and what remained, fitting within DeepSeek's 170K context window |
 
-### Pillar 2: Sensors (Feedback Controls)
+### Pillar 2: Sensors
 
 | Sensor | Implementation |
 |---|---|
