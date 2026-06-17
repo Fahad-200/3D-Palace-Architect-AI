@@ -151,11 +151,11 @@ This project was built using the **harness engineering** paradigm — the discip
 
 | Sensor | Implementation |
 |---|---|
-| **Live browser verification** | After each session, the agent's output was verified in-browser — walk through every floor, test every staircase, verify collision boundaries |
-| **Debug room labels** | A tab-key debug overlay rendered room module names in-world, making it immediately visible if a module failed to load or misaligned |
-| **NaN scrubbers** | `engine.js` contains automated NaN scrubbers that detect and neutralize corrupted vertex data at runtime (a sensor that catches what the model cannot self-correct) |
-| **Collision grid validation** | The collision system normalizes box coordinates and filters degenerate boxes — a deterministic sensor that prevents malformed collision data from propagating |
-| **Cache-busting audit** | In the final session, an automated grep-based audit identified every relative `import` that lacked `?v=2` and remediated all 58 occurrences across 27 files |
+| **Live browser verification** | After every session, the output was tested directly in the browser — walking each floor, climbing every staircase, verifying collision held |
+| **Debug room labels** | A debug overlay shows room module names inside the 3D world, revealing immediately if a module failed to load or landed in the wrong position |
+| **NaN scrubbers** | `engine.js` automatically catches and fixes corrupted coordinate data at runtime — handling what the agent cannot detect on its own |
+| **Collision grid validation** | Every collision box is checked and normalized on registration, filtering out anything malformed before it reaches the player |
+| **Cache-busting audit** | In the final session, every file was scanned for missing cache-busting parameters and all 58 occurrences were fixed across 27 files |
 
 ### Pillar 3: Architectural Constraints
 
