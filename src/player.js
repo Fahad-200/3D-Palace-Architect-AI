@@ -186,4 +186,5 @@ export function setOnGround(val) { onGround = val; }
 export function setVerticalVelocity(val) { verticalVelocity = val; }
 export function getVerticalVelocity() { return verticalVelocity; }
 export function setPlayerPosition(x, y, z) { yawObject.position.set(x, y, z); }
+export function isOnGround() { return onGround; }
 export const collidables = [];
