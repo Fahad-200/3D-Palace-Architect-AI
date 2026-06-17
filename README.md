@@ -105,7 +105,7 @@ This matters because it removes every abstraction between the code and the resul
 
 JavaScript's event loop is also the correct concurrency model for a game loop. The `requestAnimationFrame` cycle maps directly to the update-render pipeline. The language's weak typing, often cited as a liability, becomes an asset in an agentic context — a malformed value produces a visible runtime error instead of a cryptic type-level mismatch, making debugging faster and more deterministic. The prototype chain and dynamic object model let the agent compose geometry primitives without type hierarchies or generic boilerplate, which directly reduced the token cost of each session.
 
-For agentic AI code generation, JavaScript is the highest-signal, lowest-friction target language available. Every hiring manager evaluating this project should recognize that the choice to build in pure JavaScript — no frameworks, no build tools, no scaffolding — is not a lack of sophistication. It is the opposite: it is the deliberate removal of every layer that could obscure whether the agent actually understood what it was building.
+For agentic AI code generation, JavaScript is the highest-signal, lowest-friction target language available. The choice to build in pure JavaScript — no frameworks, no build tools, no scaffolding — is not a lack of sophistication. It is the deliberate removal of every layer that could obscure whether the agent actually understood what it was building.
 
 ### Collision System
 
