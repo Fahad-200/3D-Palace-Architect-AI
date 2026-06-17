@@ -138,7 +138,7 @@ This fix was applied to all three curved flights (68 steps total), the east towe
 
 This project was built using the **harness engineering** paradigm — the discipline of designing the complete infrastructure surrounding an AI agent to make its outputs reliable at scale. The three pillars of harness engineering are guides, sensors, and architectural constraints. Here is how they map to this codebase:
 
-### Pillar 1: Guides
+### Pillar 1: Guides (Feedforward Controls)
 
 | Guide | Implementation |
 |---|---|
