@@ -82,6 +82,8 @@ const coloredShaftMats = [0x1a3a6a, 0x8a2a2a, 0x1a6a3a, 0x9a7a20].map(c =>
   new THREE.MeshStandardMaterial({ color: c, transparent: true, opacity: 0.08, depthWrite: false })
 );
 
+export function getFlickerLightCount() { return flickerLights.length; }
+
 export function init(sc) {
   // ═════════════════════════════════════════════
   // SECTION A: GLOBAL AMBIENT
