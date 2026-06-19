@@ -291,6 +291,8 @@ registerUpdateCallback(function(delta, elapsed) {
 });
 }
 
+export function isAtmosphereActive() { return true; }
+
 export function init(scene) {
   build();
 }
