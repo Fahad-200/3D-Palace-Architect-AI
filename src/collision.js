@@ -227,3 +227,5 @@ export const collidables = [];
 export function getSurfaceTypeAtFeet(pos) {
   return collisionWorld.getSurfaceAtFeet(pos.x, pos.y - 1.65, pos.z);
 }
+
+export function getCollisionBoxCount() { return collisionWorld.boxes.length; }
