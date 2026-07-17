@@ -236,4 +236,6 @@ registerUpdateCallback(function updateNavHint(delta, elapsed) {
   navHint.style.opacity = '0';
 });
 
+export function isEngineRunning() { return true; }
+
 animate();
